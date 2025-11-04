@@ -1,4 +1,4 @@
-class damageType(Enum):
+class DamageType(Enum):
     Acid = "Acid"
     Burning = "Burning"
     Busting = "Busting"
@@ -17,6 +17,7 @@ class tier(Enum):
 
 recipe = []
 repairCost = ()
+information = ''
 
 class stats():
     def __init__(self, damage, stun, speed):
@@ -25,11 +26,10 @@ class stats():
         self.speed = speed
 
 class Weapon:
-    def __init__(self, name, damage, damageType, tier, recipe, repairCost, stats):
+    def __init__(self, name,stats, damageType, tier, recipe, repairCost):
         self.name = name
-        self.damage = damage
+        self.stats = stats        
         self.damageType = damageType
         self.tier = tier
         self.recipe = recipe
         self.repairCost = repairCost
-        self.stats = stats
