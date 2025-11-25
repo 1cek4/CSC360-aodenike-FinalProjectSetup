@@ -9,9 +9,11 @@ class DamageType(Enum):
     Generic = "Generic"
     Shock = "Shock"
     Slashing = "Slashing"
+    Block = "Block"
     Stabbing = "Stabbing"
+    Magic = "Magic"
 
-class tier(Enum):
+class Tier(Enum):
     I = "I"
     II = "II"
     III = "III"
@@ -21,7 +23,7 @@ damage = 0
 stun = 0
 speed = 0
 damageType = DamageType.Generic
-tier = tier.I
+tier = Tier.I
 recipe = []
 repairCost = ()
 description = ''
