@@ -1,6 +1,6 @@
 from enum import Enum
 
-class DamageType(Enum):
+class DamageType(str,Enum):
     Acid = "Acid"
     Burning = "Burning"
     Busting = "Busting"
@@ -13,7 +13,7 @@ class DamageType(Enum):
     Stabbing = "Stabbing"
     Magic = "Magic"
 
-class Tier(Enum):
+class Tier(str,Enum):
     I = "I"
     II = "II"
     III = "III"

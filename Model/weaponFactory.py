@@ -1,7 +1,7 @@
 from Model.weapon import Weapon, DamageType, Tier
 from enum import Enum
 
-class WeaponType(Enum) :
+class WeaponType(str,Enum) :
     Sword = "Sword"
     Axe = "Axe"
     Bow = "Bow"
@@ -12,6 +12,8 @@ class WeaponType(Enum) :
     Shield = "Shield"
     Misc = "Misc"
 
+weaponList = []
+
 class WeaponFactory:
     def createWeapon(self, name, type, stats , tier, recipe, repairCost, description, damageType='Generic'):
         newWeapon = Weapon
@@ -21,7 +23,6 @@ class WeaponFactory:
             raise ValueError("Invalid tier")
         if(type not in WeaponType):
             raise ValueError("Invalid weapon type")
-        print(type)        
         match type:
             case WeaponType.Sword:
                 newWeapon = Weapon(name, stats , DamageType.Slashing, tier, recipe, repairCost, description)      
@@ -41,4 +42,5 @@ class WeaponFactory:
                 newWeapon = Weapon(name, stats , DamageType.Block , tier, recipe, repairCost, description)      
             case WeaponType.Misc:
                 newWeapon = Weapon(name, stats , damageType , tier, recipe, repairCost, description)      
+        weaponList.append(newWeapon)
         return newWeapon

@@ -1,8 +1,8 @@
 from Model import weaponFactory 
-from Model.weaponFactory import WeaponType , Tier
+from Model.weaponFactory import WeaponFactory, WeaponType , Tier
 from Controllers import apiFacade
 
-weaponFactory = weaponFactory.WeaponFactory()
+weaponFactory = WeaponFactory()
 
 sword = weaponFactory.createWeapon(
     name="Excalibur",
@@ -14,9 +14,8 @@ sword = weaponFactory.createWeapon(
     description="A legendary sword with immense power."
 )
 
-print(f"Weapon Name: {sword.name}")
-
-
 #Facade added to simplify api usage, users dont need to know to create a factory nor implement the specific enums the facade handles those for them.
-api = apiFacade.apiFacade()
-print(api.createWeapon("acidEdge", "Axe", (30, 5, 7), "II", [("Acidic Crystal", 5), ("Steel Ingot", 8)], (80, "Gold"), "A sword that deals acid damage."))
+api = apiFacade.apiFacade("CSV")
+api.createWeapon("acidEdge", "Axe", (30, 5, 7), "II", [("Acidic Crystal", 5), ("Steel Ingot", 8)], (80, "Gold"), "A sword that deals acid damage.")
+api.createWeapon("flameBow", "Bow", (25, 8, 10), "I", [("Flame Essence", 3), ("Wood", 5)], (60, "Gold"), "A bow that shoots flaming arrows.", "Burning")
+api.saveWeapons("weapons data")
