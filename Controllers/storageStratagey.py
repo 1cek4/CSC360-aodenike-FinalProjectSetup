@@ -13,37 +13,57 @@ class storageStratagey:
             raise ValueError("Invalid storage type")
         self.storageType = type
 
-    def save(self, weaponList, filename):
+    def save(self, list, filename, type):
         match self.storageType:
             case StorageType.JSON:
-                self.saveAsJSON(weaponList, filename)
+                self.saveAsJSON(list, filename, type)
             case StorageType.CSV:
-                self.saveAsCSV(weaponList, filename)
+                self.saveAsCSV(list, filename, type)
             case StorageType.TXT:
-                self.saveAsTXT(weaponList, filename)
+                self.saveAsTXT(list, filename, type)
 
-    def saveAsJSON(self, weaponList, filename):
+    def saveAsJSON(self, list, filename, type):
         dataDict = {}
-        weaponsDict = {}
-        for weapon in weaponList:
-            weaponDict = {
-                "Weapon Name": weapon.name,
-                "Stats": {
-                    "Damage": weapon.stats[0],
-                    "Stun": weapon.stats[1],
-                    "Speed": weapon.stats[2]
-                },
-                "Tier": weapon.tier,
-                "Recipe": weapon.recipe,
-                "Repair Cost": {
-                    "Amount": weapon.repairCost[0],
-                    "Currency": weapon.repairCost[1]
-                },
-                "Description": weapon.description,
-                "Damage Type": weapon.damageType.value
-            }
-            weaponsDict[weapon.name] = weaponDict
-        dataDict["Weapons"] = weaponsDict
+        listdict = {}
+        if( type == 'weapon'):
+            for weapon in list:
+                weaponDict = {
+                    "Weapon Name": weapon.name,
+                    "Stats": {
+                        "Damage": weapon.stats[0],
+                        "Stun": weapon.stats[1],
+                        "Speed": weapon.stats[2]
+                    },
+                    "Tier": weapon.tier,
+                    "Recipe": weapon.recipe,
+                    "Repair Cost": {
+                        "Amount": weapon.repairCost[0],
+                        "Currency": weapon.repairCost[1]
+                    },
+                    "Description": weapon.description,
+                    "Damage Type": weapon.damageType
+                }
+                listdict[weapon.name] = weaponDict
+            dataDict["Weapons"] = listdict
+
+        elif( type == 'bug'):
+            for bug in list:
+                print(bug.resistance)
+                bugDict = {
+                    "Bug Name": bug.name,
+                    "Stats": {
+                        "Health": bug.stats[0],
+                        "Speed": bug.stats[1],
+                        "Damage": bug.stats[2]
+                    },
+                    "Damage Type": bug.damage_type,
+                    "Resistance": [(res) for res in bug.resistance],
+                    "Weakness": [(weak) for weak in bug.weakness],
+                    "Biome": bug.biome,
+                    "Description": bug.description
+                }
+                listdict[bug.name] = bugDict
+            dataDict["Bugs"] = listdict
 
         with open(filename+".json", "w") as file:
             json.dump(dataDict, file, indent=4)
@@ -63,7 +83,7 @@ class storageStratagey:
                     weapon.repairCost[0],
                     weapon.repairCost[1],
                     weapon.description,
-                    weapon.damageType.value
+                    weapon.damageType
                 ])
     def saveAsTXT(self, weaponList, filename):
         with open(filename+".txt", "w") as file:
@@ -76,5 +96,5 @@ class storageStratagey:
                     file.write(f"  - {item[0]}: {item[1]}\n")
                 file.write(f"Repair Cost: {weapon.repairCost[0]} {weapon.repairCost[1]}\n")
                 file.write(f"Description: {weapon.description}\n")
-                file.write(f"Damage Type: {weapon.damageType.value}\n")
+                file.write(f"Damage Type: {weapon.damageType}\n")
                 file.write("\n")

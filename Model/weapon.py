@@ -11,22 +11,16 @@ class DamageType(str,Enum):
     Slashing = "Slashing"
     Block = "Block"
     Stabbing = "Stabbing"
-    Magic = "Magic"
+    Fresh = "Fresh"
+    Salty = "Salty"
+    Spicy = "Spicy"
+    Sour = "Sour"
 
 class Tier(str,Enum):
     I = "I"
     II = "II"
     III = "III"
 
-name = ''
-damage = 0
-stun = 0
-speed = 0
-damageType = DamageType.Generic
-tier = Tier.I
-recipe = []
-repairCost = ()
-description = ''
 
 class stats():
     def __init__(self, damage, stun, speed):
